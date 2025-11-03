@@ -1,4 +1,4 @@
---extra-index-url https://download.pytorch.org/whl/cu124
+--extra-index-url=https://download.pytorch.org/whl/cu124
 absl-py==1.4.0
 accelerate==1.7.0
 aiofiles==23.2.1
