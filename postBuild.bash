@@ -23,7 +23,7 @@ ${PIP_BIN} install --no-cache-dir --upgrade --extra-index-url "${TORCH_INDEX_URL
 echo "Locking diffusers and Hugging Face tooling to the 2025.10 stack"
 ${PIP_BIN} install --no-cache-dir --upgrade \
     diffusers==0.35.2 \
-    huggingface-hub==1.0.1 \
+    huggingface-hub==0.36.0 \
     transformers==4.57.1
 
 sudo mkdir -p /mnt/cache/
