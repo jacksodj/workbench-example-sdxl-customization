@@ -24,7 +24,7 @@ environment:
     base:
         registry: nvcr.io
         image: nvidia/pytorch:25.01-py3
-        build_timestamp: "20241218000000"
+        build_timestamp: "20250115000000"
         name: PyTorch 25.01 Base Container
         supported_architectures:
             - amd64
@@ -74,11 +74,11 @@ environment:
             - name: conda
               binary_path: /opt/conda/bin/conda
               installed_packages:
-                - jupyterlab=3.4.4
+                - jupyterlab=4.3.5
                 - tensorboard
                 - nodejs
-                - notebook
-                - python=3.10.13
+                - notebook=7.4.7
+                - python=3.12
                 - pytorch=2.5.1
                 - torchvision
                 - pytorch-cuda=12.4

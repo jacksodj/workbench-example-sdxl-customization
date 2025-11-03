@@ -7,24 +7,24 @@
 # Exit early on errors
 set -euo pipefail
 
-# Get the machine architecture
-ARCH=$(uname -m)
-PIP_BIN=/opt/conda/bin/pip
-
-cd /workspace
-if [[ ! -d diffusers ]]; then
-    git clone https://github.com/huggingface/diffusers
+# Resolve the Python and pip entrypoints provided by the base image.
+PYTHON_BIN=${PYTHON_BIN:-$(command -v python3)}
+if [[ -z "${PYTHON_BIN}" ]]; then
+    echo "python3 is required but was not found in PATH" >&2
+    exit 1
 fi
-cd diffusers
-$PIP_BIN install -e .
-cd - >/dev/null
+
+PIP_BIN="${PYTHON_BIN} -m pip"
 
 TORCH_INDEX_URL=https://download.pytorch.org/whl/cu124
-echo "Installing PyTorch 2.5.1 from $TORCH_INDEX_URL for architecture $ARCH"
-$PIP_BIN install --upgrade --extra-index-url ${TORCH_INDEX_URL} torch==2.5.1
+echo "Ensuring PyTorch 2.5.1 is installed from $TORCH_INDEX_URL"
+${PIP_BIN} install --no-cache-dir --upgrade --extra-index-url "${TORCH_INDEX_URL}" torch==2.5.1
 
-echo "Aligning huggingface-hub and transformers versions with diffusers requirements"
-$PIP_BIN install --upgrade huggingface-hub==0.32.4 transformers==4.49.0
+echo "Locking diffusers and Hugging Face tooling to the 2025.10 stack"
+${PIP_BIN} install --no-cache-dir --upgrade \
+    diffusers==0.35.2 \
+    huggingface-hub==1.0.1 \
+    transformers==4.57.1
 
 sudo mkdir -p /mnt/cache/
 sudo chown $NVWB_UID:$NVWB_GID /mnt/cache/
