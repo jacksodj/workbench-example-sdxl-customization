@@ -23,20 +23,21 @@ layout:
 environment:
     base:
         registry: nvcr.io
-        image: nvidia/pytorch:23.09-py3
-        build_timestamp: "20230322105648"
-        name: Pytorch 23.09 Base Container
+        image: nvidia/pytorch:25.01-py3
+        build_timestamp: "20241218000000"
+        name: PyTorch 25.01 Base Container
         supported_architectures:
             - amd64
-        cuda_version: "12.2"
-        description: A base for fine-tuning SDXL with Dreambooth
+            - aarch64
+        cuda_version: "12.4"
+        description: Updated base with CUDA 12.4+ support for SDXL fine-tuning on Blackwell systems
         entrypoint_script: ""
         labels:
             - ubuntu
             - python3
             - jupyterlab
-            - cuda12.2
-            - pytorch2.1
+            - cuda12.4
+            - pytorch2.5
         apps:
             - name: inference
               type: custom
@@ -77,10 +78,10 @@ environment:
                 - tensorboard
                 - nodejs
                 - notebook
-                - python=3.10.9
-                - pytorch=2.1.0
+                - python=3.10.13
+                - pytorch=2.5.1
                 - torchvision
-                - pytorch-cuda=12.1
+                - pytorch-cuda=12.4
             - name: apt
               binary_path: /usr/bin/apt
               installed_packages:
